@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Calendar, Clock, Download, Filter, Search, Users, RefreshCw, X, AlertCircle } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react'; 
+import { Calendar, Download, Users, RefreshCw, AlertCircle, Search } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../lib/api';
 import axios from 'axios';
@@ -28,7 +27,7 @@ interface StudentAttendanceStatus {
 }
 
 const AttendancePage: React.FC = () => {
-  const { user, hasPermission } = useAuth();
+  const { hasPermission } = useAuth();
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   const [studentsAttendance, setStudentsAttendance] = useState<StudentAttendanceStatus[]>([]);
   const [searchTerm, setSearchTerm] = useState('');

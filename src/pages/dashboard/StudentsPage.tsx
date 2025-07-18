@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { Search, Plus, Upload, Info } from 'lucide-react'; 
+import { Plus, Upload, Info, AlertCircle } from 'lucide-react'; 
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../lib/api';
 import axios from 'axios';
@@ -46,12 +46,12 @@ interface SortConfig {
   direction: 'ascending' | 'descending' | null; // Arah sorting
 }
 
+
 const StudentsPage: React.FC = () => {
   const { user: currentUser, hasPermission } = useAuth();
   
   // --- START: DEKLARASI SEMUA STATE DAN REF DI BAGIAN PALING ATAS KOMPONEN ---
   const [students, setStudents] = useState<Student[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   // Ini Wajib Kamu Ingat! (State baru untuk modal QR Code)
@@ -62,17 +62,20 @@ const StudentsPage: React.FC = () => {
   const [studentToDeleteId, setStudentToDeleteId] = useState<string | null>(null); 
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'name', direction: 'ascending' }); 
 
-  const [formData, setFormData] = useState<Omit<Student, 'id' | 'created_at' | 'updated_at'>>({
-    nis: '', name: '', class: '', gender: 'L', birth_date: '',
-    address: '', parent_name: '', phone_number: ''
-  });
-
   const fileInputRef = useRef<HTMLInputElement>(null); 
   const [importResults, setImportResults] = useState<any[] | null>(null);
   const [showImportResultsModal, setShowImportResultsModal] = useState(false);
   const [showGuidelinesModal, setShowGuidelinesModal] = useState(false);
 
   const [classes, setClasses] = useState<ClassItem[]>([]); 
+
+  // Added missing state declarations
+  const [_formData, setFormData] = useState<Omit<Student, 'id' | 'created_at' | 'updated_at'>>({
+    nis: '', name: '', class: '', gender: 'L', birth_date: '',
+    address: '', parent_name: '', phone_number: ''
+  });
+  const [searchTerm] = useState<string>('');
+
   // --- END: DEKLARASI SEMUA STATE DAN REF ---
 
 
@@ -245,13 +248,13 @@ const StudentsPage: React.FC = () => {
             const classNameFromExcel = String(student.kelas || '').trim();
             if (!validClassNames.includes(classNameFromExcel)) {
                 rowStatus = 'failed';
-                rowMessage = `Kelas "${classNameFromExcel}" tidak ditemukan di database.`;
+                rowMessage = `Kelas "${classNameFromExcel}" tidak ditemukan di database.`; 
             }
             
             for (const reqHeader of requiredHeaders) {
                 if (!String(student[reqHeader] || '').trim()) {
                     rowStatus = 'failed';
-                    rowMessage = `Data kolom '${reqHeader}' kosong.`;
+                    rowMessage = `Data kolom '${reqHeader}' kosong.`; 
                     break; 
                 }
             }
@@ -316,7 +319,7 @@ const StudentsPage: React.FC = () => {
   }, [classes, loadStudents, setImportResults, setShowImportResultsModal, setPageError, setIsLoading]); 
 
 
-  const handleSort = useCallback((key: keyof Student) => {
+  const handleSort = useCallback((key: keyof Student | null) => {
     let direction: SortConfig['direction'] = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
@@ -326,7 +329,6 @@ const StudentsPage: React.FC = () => {
     }
     setSortConfig({ key, direction });
   }, [sortConfig]);
-
 
   const sortedStudents = useMemo(() => { 
     let sortableStudents = [...students]; 
@@ -341,14 +343,20 @@ const StudentsPage: React.FC = () => {
         const aValue = a[sortConfig.key!];
         const bValue = b[sortConfig.key!];
 
+        if (aValue === undefined || bValue === undefined) {
+          return 0;
+        }
+
         if (typeof aValue === 'string' && typeof bValue === 'string') {
           const comparison = aValue.localeCompare(bValue);
           return sortConfig.direction === 'ascending' ? comparison : -comparison;
         } 
-        else if (aValue < bValue) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        } else if (aValue > bValue) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+        else if (aValue !== undefined && bValue !== undefined) {
+          if (aValue < bValue) {
+            return sortConfig.direction === 'ascending' ? -1 : 1;
+          } else if (aValue > bValue) {
+            return sortConfig.direction === 'ascending' ? 1 : -1;
+          }
         }
         return 0;
       });
@@ -356,6 +364,8 @@ const StudentsPage: React.FC = () => {
 
     return sortableStudents;
   }, [students, searchTerm, sortConfig]); 
+
+
 
 
   const generateQRData = (student: Student) => {
@@ -381,7 +391,6 @@ const StudentsPage: React.FC = () => {
         format: 'a4'
       });
       const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
       const margin = 10;
       const qrSize = 40;
       const textHeight = 10;

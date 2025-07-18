@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom'; // Gunakan NavLink untuk styling aktif
 import { 
   X, School, LayoutDashboard, Users, QrCode, 
-  ClipboardList, BarChart2, Settings, LogOut, BookOpen, GraduationCap, CalendarCheck, FileText, 
+  BarChart2, Settings, LogOut, BookOpen, GraduationCap, CalendarCheck, 
   Send
 } from 'lucide-react'; // Import semua ikon yang dibutuhkan
 

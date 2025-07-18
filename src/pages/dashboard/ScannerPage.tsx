@@ -5,14 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import api from '../../lib/api';
 import axios from 'axios';
 
-// Interface untuk riwayat pemindaian
-interface ScanHistoryEntry {
-  studentName: string;
-  studentClass: string;
-  timestamp: string;
-  status: 'success' | 'failed';
-  message: string;
-}
+/* Removed unused ScanHistoryEntry interface */
 
 // Interface untuk hasil pemindaian
 interface ScanResult {
@@ -25,7 +18,7 @@ interface ScanResult {
 }
 
 const ScannerPage: React.FC = () => {
-  const { user, hasPermission } = useAuth();
+  const { hasPermission } = useAuth();
   const [scanning, setScanning] = useState(false);
   const [scanResults, setScanResults] = useState<ScanResult[]>([]);
   const [lastResult, setLastResult] = useState<ScanResult | null>(null);

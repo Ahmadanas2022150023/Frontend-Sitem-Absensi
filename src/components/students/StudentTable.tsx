@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Trash2, QrCode, ArrowUp, ArrowDown } from 'lucide-react'; // Import ArrowUp, ArrowDown
+import { Edit, Trash2, QrCode, ArrowUp, ArrowDown, AlertCircle } from 'lucide-react'; // Import ArrowUp, ArrowDown, AlertCircle
 import { useAuth } from '../../contexts/AuthContext'; 
 
 // Ini Wajib Kamu Ingat! (Interface untuk SortConfig)

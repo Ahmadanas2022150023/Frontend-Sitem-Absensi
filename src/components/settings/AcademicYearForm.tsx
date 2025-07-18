@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../lib/api';
-import { CalendarDays, School } from 'lucide-react';
+import { School } from 'lucide-react';
+
+interface Setting {
+  key: string;
+  value: string;
+}
 
 interface Props {
   onSuccess: (message: string) => void;
@@ -17,10 +22,10 @@ const AcademicYearForm: React.FC<Props> = ({ onSuccess, onError }) => {
     const fetchSettings = async () => {
       try {
         const response = await api.get('/settings');
-        const settings = response.data;
+        const settings: Setting[] = response.data;
 
-        const academicYearSetting = settings.find((s: any) => s.key === 'current_academic_year');
-        const semesterSetting = settings.find((s: any) => s.key === 'current_semester');
+        const academicYearSetting = settings.find((s) => s.key === 'current_academic_year');
+        const semesterSetting = settings.find((s) => s.key === 'current_semester');
 
         if (academicYearSetting) setAcademicYear(academicYearSetting.value);
         if (semesterSetting) setSemester(semesterSetting.value);

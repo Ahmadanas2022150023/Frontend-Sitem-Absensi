@@ -1,7 +1,6 @@
 // fe-absensi-app/src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../lib/api';
-import axios from 'axios';
 
 interface User {
   id: string;

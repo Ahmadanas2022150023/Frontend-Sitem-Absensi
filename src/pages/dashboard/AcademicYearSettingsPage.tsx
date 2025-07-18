@@ -95,7 +95,6 @@ const AcademicYearSettingsPage: React.FC = () => {
       <AcademicYearForm onSuccess={handleSuccess} onError={handleError} />
 
       <PromoteStudentsForm
-        onClose={() => {}}
         onSuccess={handleSuccess}
         onError={handleError}
         classes={classes}

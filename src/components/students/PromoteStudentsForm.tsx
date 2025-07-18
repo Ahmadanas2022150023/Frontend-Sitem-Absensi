@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import api from '../../lib/api';
 import { GraduationCap, Loader2, AlertCircle } from 'lucide-react';
 
+
+
 interface ClassItem {
   id: string;
   name: string;
@@ -10,18 +12,16 @@ interface ClassItem {
 }
 
 interface Props {
-  onClose?: () => void;
   onSuccess: (message: string) => void;
   onError: (message: string) => void;
-  classes: ClassItem[];
   currentAcademicYear: string;
+  currentSemester?: string;
+  classes?: ClassItem[];
 }
 
 const PromoteStudentsForm: React.FC<Props> = ({
   onSuccess,
   onError,
-  onClose,
-  classes,
   currentAcademicYear,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -92,7 +92,6 @@ const PromotionSettingsPage: React.FC = () => {
       )}
 
       <PromoteStudentsForm
-        onClose={() => {}}
         onSuccess={handleSuccess}
         onError={handleError}
         classes={classes}

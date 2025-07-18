@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Plus, Edit, Trash2, AlertCircle, X, Search } from 'lucide-react'; // Import ikon
+import { Plus, Edit, Trash2, AlertCircle, X } from 'lucide-react'; // Import ikon
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../lib/api';
 import axios from 'axios';

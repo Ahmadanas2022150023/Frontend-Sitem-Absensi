@@ -61,7 +61,7 @@ interface DashboardStats {
 
 
 const DashboardPage: React.FC = () => {
-  const { user, hasPermission } = useAuth();
+  const { user } = useAuth();
   const [dashboardData, setDashboardData] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

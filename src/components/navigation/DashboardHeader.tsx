@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Bell, User } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 
