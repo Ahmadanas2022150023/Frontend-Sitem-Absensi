@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, BookOpen, Users, Target, MapPin } from 'lucide-react';
+import { Award, BookOpen, Users, Target, } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const AboutPage: React.FC = () => {
       <section className="bg-primary-800 py-16 md:py-24 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Tentang SD N Pakuncen</h1>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Tentang SD N Pakuncen</h1>
             <p className="text-lg md:text-xl text-primary-100">
               Kami berkomitmen untuk memberikan pendidikan berkualitas yang membentuk karakter dan mengembangkan potensi setiap siswa.
             </p>
@@ -73,11 +73,11 @@ const AboutPage: React.FC = () => {
         </div>
         <div className="container-narrow">
             <div className="text-justify mb-12">
-<p className="text-gray-600 max-w-3xl mx-auto">
-  SD NEGERI PAKUNCEN merupakan salah satu sekolah jenjang SD berstatus Negeri yang berada di wilayah Kec. Selomerto, Kab. Wonosobo, Jawa Tengah. SD NEGERI PAKUNCEN didirikan pada tanggal 24 Januari 2007 dengan Nomor SK Pendirian 420/060/2003 yang berada dalam naungan Kementerian Pendidikan dan Kebudayaan. Dalam kegiatan pembelajaran, sekolah yang memiliki 138 siswa ini dibimbing oleh 8 guru yang profesional di bidangnya. Kepala Sekolah SD NEGERI PAKUNCEN saat ini adalah Sunarmi. Operator yang bertanggung jawab adalah Tri Ari Setyaningsih.
-  <br /><br />
-  Dengan adanya keberadaan SD NEGERI PAKUNCEN, diharapkan dapat memberikan kontribusi dalam mencerdaskan anak bangsa di wilayah Kec. Selomerto, Kab. Wonosobo.
-</p>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                SD NEGERI PAKUNCEN merupakan salah satu sekolah jenjang SD berstatus Negeri yang berada di wilayah Kec. Selomerto, Kab. Wonosobo, Jawa Tengah. SD NEGERI PAKUNCEN didirikan pada tanggal 24 Januari 2007 dengan Nomor SK Pendirian 420/060/2003 yang berada dalam naungan Kementerian Pendidikan dan Kebudayaan. Dalam kegiatan pembelajaran, sekolah yang memiliki 138 siswa ini dibimbing oleh 8 guru yang profesional di bidangnya. Kepala Sekolah SD NEGERI PAKUNCEN saat ini adalah Sunarmi. Operator yang bertanggung jawab adalah Tri Ari Setyaningsih.
+                <br /><br />
+                Dengan adanya keberadaan SD NEGERI PAKUNCEN, diharapkan dapat memberikan kontribusi dalam mencerdaskan anak bangsa di wilayah Kec. Selomerto, Kab. Wonosobo.
+              </p>
             </div>
           </div>
         </div>
@@ -142,9 +142,9 @@ const AboutPage: React.FC = () => {
         <div className="container-narrow">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Struktur Organisasi</h2>
-<p className="text-gray-600 max-w-3xl mx-auto">
-  Tim pengelola yang bertanggung jawab atas kemajuan dan perkembangan SD NEGERI PAKUNCEN
-</p>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              Tim pengelola yang bertanggung jawab atas kemajuan dan perkembangan SD NEGERI PAKUNCEN
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -290,64 +290,6 @@ const AboutPage: React.FC = () => {
               <p className="mt-2 text-gray-600 text-sm">
                 Mengajarkan Pendidikan Agama Islam sesuai kurikulum.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Location */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Lokasi Kami</h2>
-<p className="text-gray-600 max-w-3xl mx-auto">
-  SD NEGERI PAKUNCEN berlokasi strategis dan mudah diakses dari berbagai arah
-</p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="bg-white p-6 rounded-lg shadow-card">
-              <div className="flex items-start mb-4">
-                <MapPin className="h-5 w-5 text-primary-600 mt-1 flex-shrink-0" />
-                <div className="ml-3">
-                  <h3 className="text-lg font-semibold text-gray-900">Alamat</h3>
-                  <p className="text-gray-600">
-                    Jl. Dieng Km 4, Bumirejo, Kec. Mojotengah, Kab. Wonosobo Prov. Jawa Tengah, 56351
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-96 bg-gray-300 rounded-lg overflow-hidden">
-<iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.3758750471956!2d109.8826914!3d-7.4049351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708f3a3a7a1f1d%3A0x123456789abcdef0!2sHVVM%2BX24%2C%20Pakuncen%2C%20Kec.%20Selomerto%2C%20Kabupaten%20Wonosobo%2C%20Jawa%20Tengah%2056361!5e0!3m2!1sid!2sid!4v0000000000000!5m2!1sid!2sid"
-  width="100%"
-  height="100%"
-  style={{ border: 0 }}
-  allowFullScreen={true}
-  loading="lazy"
-  referrerPolicy="no-referrer-when-downgrade"
-></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-12 bg-primary-800 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Tertarik Bergabung dengan Kami?</h2>
-            <p className="text-primary-100 mb-8">
-              Kunjungi kami atau hubungi untuk informasi lebih lanjut tentang pendaftaran dan program sekolah.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a href="/contact" className="btn bg-white text-primary-800 hover:bg-gray-100">
-                Hubungi Kami
-              </a>
-              <a href="/programs" className="btn bg-transparent border border-white text-white hover:bg-white/10">
-                Lihat Program Sekolah
-              </a>
             </div>
           </div>
         </div>
