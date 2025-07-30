@@ -39,6 +39,7 @@ interface AttendanceRecord {
   gender: 'L' | 'P';
   date: string;
   time_in?: string;
+  time_out?: string;
   status: 'present' | 'absent' | 'sick' | 'permit';
   notes?: string;
   marked_by_user_id?: string;
@@ -341,7 +342,7 @@ const ReportsPage: React.FC = () => {
       record.time_in || '-',
       (() => {
         if (record.status === 'present') {
-          return record.time_in && record.time_in > '07:30:00' ? '⏰ Terlambat' : '✅ Hadir Tepat Waktu';
+          return record.time_in && record.time_in > '07:30:00' ? '⏰ Terlambat' : '✅ Tepat Waktu';
         } else if (record.status === 'absent') {
           return '❌ Tanpa Keterangan';
         } else if (record.status === 'sick') {
@@ -390,11 +391,12 @@ const ReportsPage: React.FC = () => {
 
     // Format date column as date type
     for (let R = 1; R <= detailData.length; ++R) {
-      const cellAddress = XLSX.utils.encode_cell({ r: R, c: 0 });
+      const cellAddress = XLSX.utils.encode_cell({ r: R, c: 0 }); // Date column index 0
       if (wsDetail[cellAddress]) {
         wsDetail[cellAddress].t = 'd';
-        wsDetail[cellAddress].z = XLSX.SSF._table[14];
-        wsDetail[cellAddress].v = new Date(wsDetail[cellAddress].v);
+        wsDetail[cellAddress].z = XLSX.SSF._table[14]; // Date format 'm/d/yy'
+        // Fix: parse date string from attendanceData directly
+        wsDetail[cellAddress].v = new Date(attendanceData[R - 1].date);
       }
     }
 
@@ -565,6 +567,7 @@ const ReportsPage: React.FC = () => {
               <th>Kelas</th>
               <th>Status</th>
               <th>Jam Masuk</th>
+              <th>Jam Pulang</th>
               <th>Keterangan</th>
               <th>Dicatat Oleh</th>
             </tr>
@@ -580,12 +583,23 @@ const ReportsPage: React.FC = () => {
                 <td>${record.class}</td>
                 <td>${record.status === 'present' ? 'Hadir' : record.status === 'absent' ? 'Tanpa Keterangan' : record.status === 'sick' ? 'Sakit' : 'Izin'}</td>
                 <td>${record.time_in || '-'}</td>
+                <td>${(() => {
+                  if (record.time_out) {
+                    // Cek apakah ini auto time out
+                    const timeOutHour = parseInt(record.time_out.split(':')[0]);
+                    const timeOutMinute = parseInt(record.time_out.split(':')[1]);
+                    const isAutoTimeOut = (timeOutHour > 12) || (timeOutHour === 12 && timeOutMinute >= 30);
+                    
+                    return isAutoTimeOut ? `${record.time_out}` : record.time_out;
+                  }
+                  return '-';
+                })()}</td>
                 <td>${
                   (() => {
                     if (record.status === 'present') {
                       return record.time_in && record.time_in > '07:30:00'
-                        ? '⏰'
-                        : '✅';
+                        ? '⏰ Terlambat'
+                        : '✅ Tepat Waktu';
                     } else if (record.status === 'absent') {
                       return '❌';
                     } else if (record.status === 'sick') {
@@ -898,6 +912,9 @@ const ReportsPage: React.FC = () => {
                       Jam Masuk
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Jam Pulang
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Keterangan
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -939,12 +956,19 @@ const ReportsPage: React.FC = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {record.time_in || '-'}
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {record.time_out ? (
+                            <div className="flex items-center">
+                              <span>{record.time_out}</span>
+                            </div>
+                          ) : '-'}
+                        </td>
                         <td className="px-6 py-4 text-sm text-gray-500">
                           {(() => {
                             if (record.status === 'present') {
                               return record.time_in && record.time_in > '07:30:00'
                                 ? '⏰ Terlambat'
-                                : '✅ Hadir Tepat Waktu';
+                                : '✅ Tepat Waktu';
                             } else if (record.status === 'absent') {
                               return '❌ Tanpa Keterangan';
                             } else if (record.status === 'sick') {
